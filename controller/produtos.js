@@ -47,3 +47,23 @@ exports.removerProduto = function(requisicao, resposta)  {
         });
     }
 }
+
+
+exports.editarProduto = function (requisicao, resposta){
+    const produto = requisicao.query;
+    if(!produto.nome || !produto.preco){
+        resposta.send({ mensagem: '[ERRO]: informar nome e preço!'});
+    } else{
+        Produtos.findOneAndUpdate({ nome: produto.nome }, produto, function (erro, dados){
+            if (erro){
+                return resposta.send({ mensagem: '[ERRO]: update BD'})
+            }
+            if (dados != null){
+                return resposta.send({ mensagem: '[SUCESSO]: dados atualizados'})
+            }
+            else{
+                return resposta.send({ mensagem: '[AVISO]: dados não existentes no BD!'})
+            };
+        });
+    };
+};
