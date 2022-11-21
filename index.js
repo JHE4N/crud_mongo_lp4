@@ -3,7 +3,7 @@ const api = express();
 const porta = 3000;
 const mongose = require('mongoose');
 
-const enderecoBanco = 'mongodb+srv://gabriel:1234@cluster0.wd2vtba.mongodb.net/test';
+const enderecoBanco = 'mongodb+srv://jhean:1234@cluster0.w0m31s7.mongodb.net/test';
 
 mongose.connect(enderecoBanco);
 
