@@ -36,4 +36,7 @@ api.get('/status', function(req, res){
 const produtosController = require('./controller/produtos.js');
 api.get('/produtos', produtosController.listarProdutos);
 api.post('/produtos', produtosController.adicionarProduto);
+api.delete('/produtos', produtosController.removerProduto);
+api.put('/produtos', produtosController.editarProduto);
+
 
