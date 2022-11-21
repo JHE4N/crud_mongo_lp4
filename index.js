@@ -1,27 +1,39 @@
-const { application } = require('express');
 const express = require('express');
-const api1 = express();
+const api = express();
 const porta = 3000;
-const mongoose = require('mongoose');
-const enderecoBanco = 'mongodb+srv://jhean:123@cluster0.qvtelm2.mongodb.net/test';
+const mongose = require('mongoose');
 
-mongoose.connect(enderecoBanco);
-mongoose.connection.on('error', function (erro) {
-    console.log('[ERRO]: conexão com BD ' + erro);
+const enderecoBanco = 'mongodb+srv://gabriel:1234@cluster0.wd2vtba.mongodb.net/test';
+
+mongose.connect(enderecoBanco);
+
+mongose.connection.on('error', function (erro) {
+    console.log('[ERRO]: conexao com BD' + erro);
 });
 
-mongoose.connection.on('Desconectado', function () {
-    console.log('[AVISO]: Aplicação desconectada com DB')
+mongose.connection.on('disconectado', function(){
+    console.log('[AVISO]: Aplicação desconectada com BD');
 });
 
-mongoose.connection.on('Conectado', function () {
-    console.log('[AVISO]: Aplicação conectada com DB')
+mongose.connection.on('concectado', function(){
+    console.log('[AVISO]: Aplicação concetada com BD');
 });
 
-api1.listen(porta, function (){
-    console.log('Ta rodando na porta 3k ai man')
+//localhost:3000
+api.listen(porta, function(){
+    console.log('Servidor rodando na porta ' + porta);
+})
+
+// IP_API:3000/status
+api.get('/status', function(req, res){
+    res.send('Api  online');
 });
 
-api1.get('/status', function (req, res) {
-   res.send('Api On Brow'); 
-});
+// GET -> pedir informação
+// POST -> enviar informação (criar/cadsatar1
+// PUT -> enviar informação (atualizar/editar)
+// DELETE -> deletar informação
+const produtosController = require('./controller/produtos.js');
+api.get('/produtos', produtosController.listarProdutos);
+api.post('/produtos', produtosController.adicionarProduto);
+
